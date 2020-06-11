@@ -1,0 +1,41 @@
+<!doctype html><!--声明当前文档为html文档-->
+<html lang="en"><!--语言为英语-->
+	<head><!--头部-->
+		<meta charset="UTF-8"><!--字符编码：utf-8国际编码  gb2312中文编码-->
+		<meta name="Keywords" content="关键词">
+		<meta name="Description" content="描述">
+		<title>Document</title>
+		<style>/*css样式表的衣柜*/
+      *{margin:0;padding:0;}
+		</style>
+    <!-- 引入插件库文件 -->
+    <script src="./js/dropfileread.js"></script>
+	</head>
+	<body>
+  
+    <!-- 实例化 -->
+    <script type="text/javascript">
+        new DropFileRead({
+          id: "spring-dialog-drop", // 容器id
+          dropClass: "a1", // 可选类名
+          dropDomContent: "a2", // 可选类名
+          dropTipClass: "a3", // 可选类名
+          callback: function(files, e){ // 回调函数 
+            var file = e.dataTransfer.files;//获取外部拖拽的文件
+            for (var i=0;i<file.length ; i++){
+              var read = new FileReader();//新建一个读取文件对象
+              read.readAsDataURL(file[i]);//读取拖拽进来的文件
+              console.log(file, read);
+              read.onload = function(){//读取文件完成之后触发
+                //alert(this.result);//弹出读取到的数据
+                console.log(this.result);
+                var img = document.createElement("img");//创建一个img标签
+                img.src = this.result;//把读取到的数据赋值给src
+                document.body.appendChild(img);
+              }
+            }
+          }
+        });
+    </script>
+  </body>
+</html>
